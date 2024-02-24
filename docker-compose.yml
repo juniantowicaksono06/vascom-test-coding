@@ -1,0 +1,42 @@
+version: '3'
+services:
+  express:
+    container_name: vascomm-express
+    build: .
+    ports:
+      - 5002:5000
+    volumes:
+      - ./api:/api
+      - ./run_api.sh:/tmp/run.sh
+    command: /bin/bash /tmp/run.sh
+    networks:
+      - vascomm-network
+  mysql:
+    container_name: vascomm-mysql
+    image: mysql:8.0.32
+    ports: 
+      - 3313:3306
+    env_file:
+      - ./.mysql_env
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - vascomm-network
+  laravel:
+    container_name: vascom-laravel
+    command: /usr/local/bin/run.sh
+    build: 
+      context: .
+      dockerfile: Dockerfile_web
+    ports:
+      - 8090:8000
+      - 5175:5173
+      - 5176:5174
+    volumes:
+      - ./web:/var/www/html
+      - ./docker-php-upload.ini:/usr/local/etc/php/conf.d/docker-php-upload.ini
+    networks:
+      - vascomm-network
+networks:
+  vascomm-network:
+    driver: bridge
