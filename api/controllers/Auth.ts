@@ -69,7 +69,7 @@ const Login =  async (req: Request, res: Response, next: NextFunction, role: 'AD
         return response(200, res, "Berhasil login", {
             token: token
         }, {
-            cookie_name: "auth_token",
+            cookie_name: role == "ADMIN" ? "auth_token" : "user_token",
             cookie_value: encryptString(token),
             cookie_options: {
                 httpOnly: true

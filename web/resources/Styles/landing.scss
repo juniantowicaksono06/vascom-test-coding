@@ -1,0 +1,38 @@
+@import './variables.scss';
+#header {
+    border-bottom: 1px solid #E4E4E4;
+}
+
+#footer {
+    border-top: 1px solid #E4E4E4;
+}
+
+#searchBar {
+    border-radius: 0;
+    background-color: $colorGray4;
+    border-right: none;
+    font-size: 12px;
+}
+
+.grid-product {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 equal width columns */
+    grid-gap: 30px; 
+    width: 100%;
+}
+
+#carouselNewProduct {
+    .carousel-control-prev {
+        left: -150px;
+        filter: brightness(70%);
+    }
+    .carousel-control-next {
+        right: -150px;
+        filter: brightness(70%);
+    }
+}
+
+#pageRectangle {
+    background-color: $colorLightBlue2;
+    min-height: 15px;
+}

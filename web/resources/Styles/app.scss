@@ -112,6 +112,21 @@ html, body, #app {
     font-style: italic;
 }
 
+.playfair-display-regular {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.playfair-display-bold {
+    font-family: "Playfair Display", serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+}
+
+
 .bg-color-lightblue {
     background-color: $colorLightBlue1;
 }
@@ -144,7 +159,6 @@ html, body, #app {
 .color-light-gray {
     color: $colorGray3;
 }
-
 
 .bg-color-green {
     background-color: $colorGreen1;
@@ -222,4 +236,39 @@ div.input-file-container {
         padding: 20px;
         border-radius: 10px;
     }
+}
+
+@font-face {
+    font-family: 'SFProDisplayRegular';
+    src: url('/fonts/SFPRODISPLAYREGULAR.OTF') format('opentype');
+}
+
+.sf-pro-display-regular {
+    font-family: 'SFProDisplayRegular', sans-serif;
+}
+
+.no-controls {
+    .carousel-indicators, .carousel-control-prev, .carousel-control-next {
+        display: none;
+    }
+}
+
+.carousel-indicators {
+    display: none;
+}
+
+.product-item {
+    padding: 10px 20px;
+    border: 2px solid transparent;
+}
+
+.product-item:hover {
+    border: 2px solid $colorGray5;
+    cursor: pointer;
+}
+
+.btn-outline-blue {
+    background-color: transparent;
+    border: 1px solid $colorLightBlue1;
+    color: $colorLightBlue1;
 }

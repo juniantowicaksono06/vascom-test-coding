@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\LandingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,9 +16,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 
 Route::prefix('/admin')->group(function() {
@@ -34,4 +32,11 @@ Route::prefix('/admin')->group(function() {
             Route::get('/login', 'login');
         });
     });
+});
+
+Route::controller(LandingController::class)->group(function() {
+    Route::middleware(['auth.user'])->group(function() {
+        Route::get('/', 'landing');
+    });
+    Route::get('/logout', 'logout');
 });

@@ -16,4 +16,10 @@ class Controller extends BaseController
         $data = (array)$data;
         return Inertia::render($view_name, array_merge($data, $passing_data));
     }
+
+    public function renderUserView($view_name, $passing_data = []) {
+        $data = \Request::get('profile');
+        $data = (array)$data;
+        return Inertia::render($view_name, array_merge($data, $passing_data));
+    }
 }

@@ -9,9 +9,6 @@ class AdminController extends Controller {
         return $this->renderAdminView('Admin/Dashboard', [
             'title' => "Admin Dashboard"
         ]);
-        // return Inertia::render('Admin/Dashboard', [
-        //     'title' => "Admin Dashboard"
-        // ]);
     }
 
 
