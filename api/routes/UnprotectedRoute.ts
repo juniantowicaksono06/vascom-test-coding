@@ -6,8 +6,11 @@ import { Router } from "express"
 const UnprotectedRoute = (app: Express, server: Server<typeof IncomingMessage, typeof ServerResponse>) => {   
     const router = Router()
 
-    // Login Route
-    router.post('/login', Auth.Login)
+    // Login Admin
+    router.options('/login-admin', Auth.LoginAdmin)
+    router.post('/login-admin', Auth.LoginAdmin)
+    // Login User
+    router.post('/login', Auth.LoginUser)
 
     app.use('/api', router)
 }

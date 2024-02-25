@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 import { UsersType } from "../type";
 import { Op } from "sequelize";
 
-const Login =  async (req: Request, res: Response, next: NextFunction) => {
+const Login =  async (req: Request, res: Response, next: NextFunction, role: 'ADMIN' | 'USER') => {
     try {
         // Membuat schema untuk validasi
         const schema = Joi.object({
@@ -22,12 +22,19 @@ const Login =  async (req: Request, res: Response, next: NextFunction) => {
 
         const users = await Users.findOne({
             where: {
-                [Op.or]: [
+                [Op.and]: [
                     {
-                        email: data['searchBy']
-                    },
+                        [Op.or]: [
+                            {
+                                email: data['searchBy']
+                            },
+                            {
+                                telpon: data['searchBy']
+                            }
+                        ]
+                    }, 
                     {
-                        telpon: data['searchBy']
+                        role: role
                     }
                 ]
             }
@@ -51,6 +58,7 @@ const Login =  async (req: Request, res: Response, next: NextFunction) => {
         // Membuat JWT Token
         const token = jwt.sign({
             exp: Math.floor(Date.now() / 1000) + (60 * 60 * 24),
+            user_id: user['user_id'],
             fullname: user['fullname'],
             role: user['role'],
             email: user['email'],
@@ -69,9 +77,16 @@ const Login =  async (req: Request, res: Response, next: NextFunction) => {
         })
     }
     catch (error: any) {
-        console.log(error)
         return response(500, res, 'Internal Server Error')
     }
 }
 
-export {Login}
+const LoginAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    return await Login(req, res, next, 'ADMIN')
+}
+
+const LoginUser = async (req: Request, res: Response, next: NextFunction) => {
+    return await Login(req, res, next, 'USER')
+}
+
+export {Login, LoginAdmin, LoginUser}

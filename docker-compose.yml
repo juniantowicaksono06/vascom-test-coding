@@ -30,8 +30,8 @@ services:
       dockerfile: Dockerfile_web
     ports:
       - 8090:8000
-      - 5175:5173
-      - 5176:5174
+      - 5175:5175
+      - 5176:5176
     volumes:
       - ./web:/var/www/html
       - ./docker-php-upload.ini:/usr/local/etc/php/conf.d/docker-php-upload.ini

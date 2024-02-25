@@ -14,6 +14,11 @@ const response = (responseCode: number = 200, res: Response, responseMessage: st
     }
 
     if(cookie) {
+        // Allow cookie dari host berbeda
+        res.set(
+            'Access-Control-Expose-Headers',
+            'date, etag, access-control-allow-origin, access-control-allow-credentials'
+        );
         return res.status(responseCode).cookie(cookie['cookie_name'], cookie['cookie_value'], cookie['cookie_options']).send(result)
     }
 

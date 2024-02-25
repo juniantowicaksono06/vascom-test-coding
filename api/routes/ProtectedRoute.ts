@@ -3,6 +3,7 @@ import { ServerResponse, IncomingMessage, Server } from 'http'
 import { Router } from "express"
 import * as UserController from "../controllers/User"
 import * as ProductController from "../controllers/Product"
+import * as Dashboard from "../controllers/Dashboard"
 import { verifyToken } from "../middleware";
 
 const ProtectedRoute = (app: Express, server: Server<typeof IncomingMessage, typeof ServerResponse>) => {   
@@ -35,6 +36,9 @@ const ProtectedRoute = (app: Express, server: Server<typeof IncomingMessage, typ
 
     // Delete Produk Route
     router.delete('/product/:productId', ProductController.Delete)
+
+    // Dashboard
+    router.get('/dashboard', Dashboard.Get)
     
     // Add prefix API to endpoint
     app.use('/api', verifyToken(router))

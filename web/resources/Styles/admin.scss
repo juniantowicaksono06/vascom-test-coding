@@ -1,0 +1,92 @@
+@import './variables.scss';
+div#profilePic {
+    #profilePopup {
+        position: absolute;
+        top: 80px;
+        background-color: $colorWhite1;
+        min-width: 400px;
+        min-height: 200px;
+        right: 0;
+        border-radius: 5px;
+        padding: 10px 15px;
+        box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.1); /* Adjust the shadow parameters */
+        z-index: 9999;
+    }
+}
+
+
+div#sidebar {
+    width: 350px;
+}
+
+.menu-item {
+    color: $colorDark2;
+    &.active {
+        color: $colorWhite1;
+        background-color: $colorLightBlue1;
+    }
+}
+
+.summary-card {
+    min-height: 200px;
+    width: 100%;
+    background-color: $colorLightPurple1;
+    border-radius: 30px;
+    position: relative;
+    padding: 40px;
+    div.summary-ellipsis {
+        position:absolute;
+        background-color: $colorWhiteTransparent1;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        &.first {
+            right: -30px;
+            bottom: 40px;
+        }
+        &.second {
+            right: -10px;
+            bottom: -30px;
+        }
+    }
+}
+
+.badge-user {
+    min-width: 100px;
+}
+
+.custom-modal-header {
+    height: 100px;
+    background-color: $colorLightBlue1;
+    position: relative;
+}
+
+.custom-modal-header::before {
+    content: "";
+    width: 100%;
+    height: 30px;
+    bottom: -32px;
+    right: 0;
+    position: absolute; 
+    transform: skewY(-3deg); 
+    background-color: white;
+}
+
+.custom-modal-header::after {
+    content: "";
+    width: 100%;
+    height: 30px;
+    bottom: -32px;
+    position: absolute; 
+    transform: skewY(3deg); 
+    background-color: white;
+}
+
+.custom-modal-icon {
+    background-color: $colorRed1;
+    position: absolute;
+    z-index: 9999;
+    padding: 20px;
+    border-radius: 50%;
+    top: 60px;
+}

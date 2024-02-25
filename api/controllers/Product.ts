@@ -13,6 +13,7 @@ const Create = async (req: Request, res: Response, next: NextFunction) => {
     const schema = Joi.object({
         nama: Joi.string().max(200).required(),
         harga: Joi.number().required(),
+        gambar: Joi.string().required()
     })
     let data = req.body
     const {error, value} = schema.validate(data) as ValidationResult
@@ -23,10 +24,10 @@ const Create = async (req: Request, res: Response, next: NextFunction) => {
     const transaction = await db.transaction()
     try {
         const productData: ProductsType = {
-            nama: "Enodia10",
-            harga: 100000000,
+            nama: data['nama'],
+            harga: data['harga'],
             product_status: "ACTIVE",
-            gambar: 'default.jpg'
+            gambar: data['gambar']
         }
         // Insert Data ke table users
         await Products.create({
@@ -37,7 +38,7 @@ const Create = async (req: Request, res: Response, next: NextFunction) => {
         // Commit transaksi
         await transaction.commit()
 
-        return response(200, res, "Produk berhasil ditambahkan")
+        return response(201, res, "Produk berhasil ditambahkan")
     } catch (error) {
         transaction.rollback()
         return response(500, res, "Internal Server Error")
@@ -52,6 +53,8 @@ const Read = async (req: Request, res: Response, next: NextFunction) => {
         const offset = parseInt((req.query.skip as string)) || 1
         const searchBy = req.query.search_by as string || ""
         const searchValue = req.query.search_value as string || ""
+        const latest = req.query.latest as string || null // Mencari product yang aktif saja
+
         
         // Offset halaman
         const pageOffset = offset <= 0 ? 0 : (offset - 1) * limit
@@ -66,13 +69,22 @@ const Read = async (req: Request, res: Response, next: NextFunction) => {
                 'nama',
                 'harga',
                 'gambar',
-                'product_status'
+                'product_status',
+                'created_at'
             ],
             limit: limit,
             offset: pageOffset
         }
         // Cek apa ada parameter search kalo ada tambahin key object ke Parameter Sequelize
-        if(searchColumn.includes(searchBy)) {
+        if(latest == "TRUE") {
+            sequelizeParameter['where'] = {
+                product_status: 'ACTIVE'
+            }
+            sequelizeParameter['order'] = [
+                ['created_at', "DESC"]
+            ]
+        }
+        else if(searchColumn.includes(searchBy)) {
             if(searchValue != "") {
                 // Khusus untuk column role dan user status wherenya menggunakan sama dengan
                 if(searchBy == "product_status") {
@@ -113,7 +125,8 @@ const Update = async (req: Request, res: Response, next: NextFunction) => {
     // Validasi Input
     const schema = Joi.object({
         nama: Joi.string().max(200).required(),
-        harga: Joi.number().required()
+        harga: Joi.number().required(),
+        gambar: Joi.string().required()
     })
 
     let data = req.body

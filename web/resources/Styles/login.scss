@@ -1,0 +1,29 @@
+@import './variables.scss';
+
+#coverLogin {
+    background-color: $colorLightBlue1;
+}
+
+#coverLogin {
+    div.ellipsis-left {
+
+        min-height: 600px;
+        min-width: 600px;
+        position: fixed;
+        background-color: $colorWhiteTransparent1;
+        border-radius: 100%;
+        border-top-left-radius: 0;
+        top: 0;
+        left: -230px;
+    }
+    div.ellipsis-bottom {
+        min-height: 900px;
+        min-width: 56.5%;
+        position: fixed;
+        background-color: $colorWhiteTransparent1;
+        border-radius: 100%;
+        border-bottom-right-radius: 0;
+        bottom: -400px;
+        left: -140px;
+    }
+}
